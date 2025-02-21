@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./src/student/dash_single/paralympics_"
+    ]
+}
