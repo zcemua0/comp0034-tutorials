@@ -1,7 +1,7 @@
 from dash import Dash, html, Input, Output, clientside_callback, dcc
 import dash_bootstrap_components as dbc
 
-from student.dash_single.creating_charts import line_chart, bar_gender
+from student.dash_single.creating_charts import line_chart, bar_gender, scatter_geo
 
 # Define the meta tag for the viewport (required to support responsive design)
 meta_tags = [{"name": "viewport", "content": "width=device-width, initial-scale=1"},]
@@ -23,6 +23,7 @@ color_mode_switch = html.Span([
 # Create the figure (chart) variables
 line_fig = line_chart("sports")
 bar_fig = bar_gender("winter")
+map_fig = scatter_geo()
 
 # Define layout components 
 row_one = dbc.Row([
@@ -76,8 +77,7 @@ row_three = dbc.Row([
 row_four = dbc.Row([
     # Column 1: visualisation map with markers for events.
     dbc.Col(children=[
-        html.Img(src=app.get_asset_url('map-placeholder.png'), className="img-fluid"),
-    ], width=8),
+        dcc.Graph(id='map', figure=map_fig), ], width=8),
     
     # Column 2: card with event details        
     dbc.Col(children=[
@@ -94,7 +94,7 @@ row_four = dbc.Row([
             style={"width": "18rem"},
         ),    
     ], width=4),
-], justify = "between")
+], align="start")
 
 app.layout = dbc.Container([    
     # ----Layout components----
