@@ -25,23 +25,79 @@ color_mode_switch = html.Span([
 
 # Define layout components 
 row_one = dbc.Row([
-    dbc.Col(['App name and text']),
+    dbc.Col([
+        html.H1("Paralympics Data Analytics"),
+        html.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue luctus elit nec gravida.")
+    ])
 ])
 
 row_two = dbc.Row([
-    dbc.Col(children=['drop down'], width=4),
-    dbc.Col(children=['check boxes'], width={"size": 4, "offset": 2}),
+    
+    # Drop Down Column 1
+    dbc.Col(children=[
+        dbc.Select(
+            options=[
+                {"label": "Events", "value": "events"},  # The value is in the format of the column heading in the data
+                {"label": "Sports", "value": "sports"},
+                {"label": "Countries", "value": "countries"},
+                {"label": "Athletes", "value": "participants"},
+            ],
+            value="events",  # The default selection
+            id="dropdown-input",  # id uniquely identifies the element, will be needed later for callbacks
+        ),
+    ], width=4),
+    
+    #Checklist Column 2
+    dbc.Col(children=[
+        html.Div([
+            dbc.Label("Select the Paralympic Games type"),
+            dbc.Checklist(
+                options=[
+                    {"label": "Summer", "value": "summer"},
+                    {"label": "Winter", "value": "winter"},
+                ],
+                value=["summer"],  # Values is a list as you can select 1 AND 2
+                id="checklist-input",
+            ),
+        ])         
+    ], width={"size": 4, "offset": 2}),
     # 2 'empty' columns between this and the previous column
 ])
 
 row_three = dbc.Row([
-    dbc.Col(children=['line chart'], width=6),
-    dbc.Col(children=['bar chart'], width=6),
+# note: className="img-fluid" is a Bootstrap class and prevents the image spanning the next column    
+    # Column 1: line chart Img
+    dbc.Col(children=[
+        html.Img(src=app.get_asset_url('line-chart-placeholder.png'), className="img-fluid"),   
+    ], width=6),
+    
+    # Column 2: bar chart img
+    dbc.Col(children=[
+        html.Img(src=app.get_asset_url('bar-chart-placeholder.png'), className="img-fluid"),
+    ], width=6),
 ])
 
 row_four = dbc.Row([
-    dbc.Col(children=['world map showing event locations'], width=8),
-    dbc.Col(children=['card showing event details'], width=4),
+    # Column 1: visualisation map with markers for events.
+    dbc.Col(children=[
+        html.Img(src=app.get_asset_url('map-placeholder.png'), className="img-fluid"),
+    ], width=8),
+    
+    # Column 2: card with event details        
+    dbc.Col(children=[
+        dbc.Card([
+            dbc.CardImg(src=app.get_asset_url("logos/2022_Beijing.jpg"), top=True),
+            dbc.CardBody([
+                html.H4("Beijing 2022", className="card-title"),
+                html.P("Number of athletes: XX", className="card-text", ),
+                html.P("Number of events: XX", className="card-text", ),
+                html.P("Number of countries: XX", className="card-text", ),
+                html.P("Number of sports: XX", className="card-text", ),
+            ]),
+        ],
+            style={"width": "18rem"},
+        ),    
+    ], width=4),
 ])
 
 app.layout = dbc.Container([
