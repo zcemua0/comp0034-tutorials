@@ -1,7 +1,7 @@
 from dash import Dash, html, Input, Output, clientside_callback, dcc
 import dash_bootstrap_components as dbc
 
-from student.dash_single.creating_charts import line_chart
+from student.dash_single.creating_charts import line_chart, bar_gender
 
 # Define the meta tag for the viewport (required to support responsive design)
 meta_tags = [{"name": "viewport", "content": "width=device-width, initial-scale=1"},]
@@ -22,19 +22,21 @@ color_mode_switch = html.Span([
 
 # Create the figure (chart) variables
 line_fig = line_chart("sports")
+bar_fig = bar_gender("winter")
 
 # Define layout components 
 row_one = dbc.Row([
     dbc.Col([
-        html.H1("Paralympics Data Analytics"),
+        html.H1("Paralympics Data Analytics Dashboard", id='title'),
         html.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue luctus elit nec gravida.")
     ], width=12)
 ], justify="center", align="center")
 
 row_two = dbc.Row([
     # Drop Down Column 1
-    dbc.Col([
+    dbc.Col(children=[
         dbc.Select(
+            id="dropdown-category",
             options=[
                 {"label": "Events", "value": "events"},  # The value is in the format of the column heading in the data
                 {"label": "Sports", "value": "sports"},
@@ -42,39 +44,34 @@ row_two = dbc.Row([
                 {"label": "Athletes", "value": "participants"},
             ],
             value="events",  # The default selection
-            id="dropdown-input",  # id uniquely identifies the element, will be needed later for callbacks
         ),
     ], width=4),
     
     # Checklist Column 2
-    dbc.Col([
+    dbc.Col(children=[
         html.Div([
             dbc.Label("Select the Paralympic Games type"),
             dbc.Checklist(
+                id="checklist-input",
                 options=[
                     {"label": "Summer", "value": "summer"},
                     {"label": "Winter", "value": "winter"},
                 ],
                 value=["summer"],  # Values is a list as you can select 1 AND 2
-                id="checklist-input",
             ),
         ])         
-    ], width={"size": 4, "offset": 2}),
-    # 2 'empty' columns between this and the previous column
-], justify = "between")
+    ], width={"size": 4, "offset": 2}), # 2 'empty' columns between columns
+], justify="between")
 
 row_three = dbc.Row([
-# note: className="img-fluid" is a Bootstrap class and prevents the image spanning the next column    
-    # Column 1: line chart Img
+    # Column 1: line chart
     dbc.Col(children=[
-        html.Img(src=app.get_asset_url('line-chart-placeholder.png'), className="img-fluid"),   
-    ], width=6),
+        dcc.Graph(id="line-chart", figure=line_fig), ], width=6),   
     
-    # Column 2: bar chart img
+    # Column 2: bar char
     dbc.Col(children=[
-        html.Img(src=app.get_asset_url('bar-chart-placeholder.png'), className="img-fluid"),
-    ], width=6),
-], justify = "between")
+        dcc.Graph(id="bar-chart", figure=bar_fig), ], width=6),
+], align="start")
 
 row_four = dbc.Row([
     # Column 1: visualisation map with markers for events.
@@ -106,7 +103,7 @@ app.layout = dbc.Container([
     row_three,
     row_four,
     
-    # ----Theme switch---- 
+    # ----Theme switch---- # try to define above then just call dbc.switch here
     html.Div([ 
         dbc.Switch(
             id='theme-switch',
@@ -120,8 +117,6 @@ app.layout = dbc.Container([
     # Hidden div for setting Bootstrap theme
     html.Div(id="theme-container", style={"display": "none"}),    
     
-    # ----Adding Chart----
-    dcc.Graph(id="line-chart", figure=line_fig)
 ])
 
 # Client-side callback to toggle theme
