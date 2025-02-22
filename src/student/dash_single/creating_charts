@@ -1,13 +1,9 @@
-import sqlite3
 from importlib import resources
 
-import dash
-import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
-from dash import html
 
-    
+
 def line_chart(feature):
     """ Creates a line chart with data from paralympics.csv
 
@@ -24,7 +20,8 @@ def line_chart(feature):
     # take the feature parameter from the function and check it is valid
     if feature not in ["sports", "participants", "events", "countries"]:
         raise ValueError(
-            'Invalid value for "feature". Must be one of ["sports", "participants", "events", "countries"]')
+            'Invalid value for "feature". Must be one of ["sports", '
+            '"participants", "events", "countries"]')
     else:
         # Make sure it is lowercase to match the dataframe column names
         feature = feature.lower()

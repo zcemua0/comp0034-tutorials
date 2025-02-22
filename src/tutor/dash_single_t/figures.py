@@ -8,6 +8,7 @@ import plotly.express as px
 from dash import html
 
 
+# Connect to the database
 def get_database_connection():
     """
     Create a connection to the SQLite database.
