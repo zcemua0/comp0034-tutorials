@@ -1,7 +1,7 @@
 from dash import Dash, html, Input, Output, clientside_callback, dcc
 import dash_bootstrap_components as dbc
 
-from student.dash_single.charts_creation import line_chart
+from dash_single.charts_creation import line_chart
 
 # Define the meta tag for the viewport (required to support responsive design)
 meta_tags = [{"name": "viewport", "content": "width=device-width, initial-scale=1"},]

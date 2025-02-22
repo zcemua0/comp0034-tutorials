@@ -1,9 +1,13 @@
+import sqlite3
 from importlib import resources
 
+import dash
+import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
+from dash import html
 
-
+    
 def line_chart(feature):
     """ Creates a line chart with data from paralympics.csv
 
