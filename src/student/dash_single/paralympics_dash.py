@@ -1,8 +1,7 @@
 from dash import Dash, html, Input, Output, clientside_callback, dcc
 import dash_bootstrap_components as dbc
 
-from dash_single. import line_chart  #Check this
-
+from student.dash_single.creating_charts import line_chart
 
 # Define the meta tag for the viewport (required to support responsive design)
 meta_tags = [{"name": "viewport", "content": "width=device-width, initial-scale=1"},]
@@ -47,7 +46,7 @@ row_two = dbc.Row([
         ),
     ], width=4),
     
-    #Checklist Column 2
+    # Checklist Column 2
     dbc.Col([
         html.Div([
             dbc.Label("Select the Paralympic Games type"),

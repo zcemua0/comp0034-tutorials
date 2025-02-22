@@ -1,7 +1,10 @@
 from importlib import resources
 
+# import dash
+# import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
+# from dash import html
 
 
 def line_chart(feature):
@@ -28,8 +31,9 @@ def line_chart(feature):
 
     # Read the data from .csv into a DataFrame
     cols = ["type", "year", "host", feature]
+    
     # Uses importlib.resources rather than pathlib.Path
-    with resources.path("data", "paralympics.csv") as path:
+    with resources.path("student.data", "paralympics.csv") as path:
         line_chart_data = pd.read_csv(path, usecols=cols)
 
         # Create a Plotly Express line chart with the following parameters
@@ -37,6 +41,16 @@ def line_chart(feature):
         #    x="year" is the column to use as the x-axis
         #    y=feature is the column to use as the y-axis
         #    color="type" indicates if winter or summer
-        fig = px.line(line_chart_data, x="year", y=feature, color="type")
+        fig = px.line(line_chart_data, x="year", y=feature, color="type",
+                      title=f"How has the number of {feature} changed over time?",
+                      template="simple_white",
+                      labels={
+                          "year": "Year",
+                          "feature": "",
+                      }  
+                      )
+                      
         return fig
     
+    
+   
