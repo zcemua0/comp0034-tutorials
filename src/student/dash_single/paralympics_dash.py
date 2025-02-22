@@ -1,10 +1,10 @@
-from dash import Dash, html, Input, Output, clientside_callback
+from dash import Dash, html, Input, Output, clientside_callback, dcc
 import dash_bootstrap_components as dbc
 
+from student.dash_single.charts_creation import line_chart
+
 # Define the meta tag for the viewport (required to support responsive design)
-meta_tags = [
-    {"name": "viewport", "content": "width=device-width, initial-scale=1"},
-]
+meta_tags = [{"name": "viewport", "content": "width=device-width, initial-scale=1"},]
 
 # Variable that contains the external_stylesheet to use, 
 external_stylesheets = [
@@ -20,6 +20,9 @@ color_mode_switch = html.Span([
     dbc.Label(className="fa fa-sun", html_for="theme-switch"),
 ])
 
+# Create the figure (chart) variables
+line_fig = line_chart("sports")
+
 # Define layout components 
 row_one = dbc.Row([
     dbc.Col([
@@ -29,7 +32,6 @@ row_one = dbc.Row([
 ], justify="center", align="center")
 
 row_two = dbc.Row([
-    
     # Drop Down Column 1
     dbc.Col([
         dbc.Select(
@@ -97,14 +99,14 @@ row_four = dbc.Row([
     ], width=4),
 ], justify = "between")
 
-app.layout = dbc.Container([
-    # Layout components
+app.layout = dbc.Container([    
+    # ----Layout components----
     row_one,
     row_two,
     row_three,
     row_four,
     
-    # Theme switch 
+    # ----Theme switch---- 
     html.Div([ 
         dbc.Switch(
             id='theme-switch',
@@ -116,7 +118,10 @@ app.layout = dbc.Container([
         ),
     ]),
     # Hidden div for setting Bootstrap theme
-    html.Div(id="theme-container", style={"display": "none"})    
+    html.Div(id="theme-container", style={"display": "none"}),    
+    
+    # ----Adding Chart----
+    dcc.Graph(id="line-chart", figure=line_fig)
 ])
 
 # Client-side callback to toggle theme

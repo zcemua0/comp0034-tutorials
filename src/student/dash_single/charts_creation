@@ -27,7 +27,6 @@ def line_chart(feature):
 
     # Read the data from .csv into a DataFrame
     cols = ["type", "year", "host", feature]
-    
     # Uses importlib.resources rather than pathlib.Path
     with resources.path("data", "paralympics.csv") as path:
         line_chart_data = pd.read_csv(path, usecols=cols)
@@ -39,3 +38,4 @@ def line_chart(feature):
         #    color="type" indicates if winter or summer
         fig = px.line(line_chart_data, x="year", y=feature, color="type")
         return fig
+    
