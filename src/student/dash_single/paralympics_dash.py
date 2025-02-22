@@ -30,25 +30,25 @@ card_fig = create_card("Sydney 2000")
 row_one = dbc.Row([
     dbc.Col([
         html.H1("Paralympics Data Analytics Dashboard", id='title'),
-        html.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue luctus elit nec gravida.")
+        html.P("Try to answer the questions using the charts below.")
     ], width=12)
 ], justify="center", align="center")
 
 row_two = dbc.Row([
     # Drop Down Column 1
     dbc.Col(children=[
+        # format: Input(component_id="", component_property="",  options, value=...)
         dbc.Select(
-            id="dropdown-category",
+            id="dropdown-category",     # This is the component's id that will let to find component on the webpage
             options=[
-                {"label": "Events", "value": "events"},  # The value is in the format of the column heading in the data
-                {"label": "Sports", "value": "sports"},
+                {"label": "Events", "value": "events"},  # The value is in the format of property with the needed value for the callback
+                {"label": "Sports", "value": "sports"},  # The value is the heading format of the selected options
                 {"label": "Countries", "value": "countries"},
                 {"label": "Athletes", "value": "participants"},
             ],
             value="events",  # The default selection
         ),
     ], width=4),
-    
     # Checklist Column 2
     dbc.Col(children=[
         html.Div([
@@ -66,10 +66,9 @@ row_two = dbc.Row([
 ], justify="between")
 
 row_three = dbc.Row([
-    # Column 1: line chart
+    # Column 1: line chart ( This is the output for line chart)
     dbc.Col(children=[
         dcc.Graph(id="line-chart", figure=line_fig), ], width=6),   
-    
     # Column 2: bar char
     dbc.Col(children=[
         dcc.Graph(id="bar-chart", figure=bar_fig), ], width=6),
@@ -79,7 +78,6 @@ row_four = dbc.Row([
     # Column 1: visualisation map with markers for events.
     dbc.Col(children=[
         dcc.Graph(id='map', figure=map_fig), ], width=8),
-    
     # Column 2: card with event details        
     dbc.Col(children=[card_fig], id='card', width=4),
     ], align="start")
@@ -106,6 +104,18 @@ app.layout = dbc.Container([
     html.Div(id="theme-container", style={"display": "none"}),    
     
 ])
+
+
+# Callback to update the line chart
+@app.callback(
+    Output(component_id="line-chart", component_property="figure"),
+    Input(component_id="dropdown-category", component_property="value"),
+)   # ensure no blank line
+def update_line_chart(feature):
+    """ Update the line chart based on the dropdown selection """
+    figure = line_chart(feature)
+    return figure
+
 
 # Client-side callback to toggle theme
 clientside_callback(
