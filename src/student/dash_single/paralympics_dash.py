@@ -4,14 +4,12 @@ import dash_bootstrap_components as dbc
 # Define the meta tag for the viewport (required to support responsive design)
 meta_tags = [
     {"name": "viewport", "content": "width=device-width, initial-scale=1"},
-    # Added for better readability
 ]
 
 # Variable that contains the external_stylesheet to use, 
 external_stylesheets = [
     dbc.themes.BOOTSTRAP,
-    dbc.icons.FONT_AWESOME,
-]
+    dbc.icons.FONT_AWESOME,]
 
 # Pass the stylesheet and meta_tag variables to the Dash app constructor
 app = Dash(__name__, external_stylesheets=external_stylesheets, meta_tags=meta_tags)
@@ -28,13 +26,13 @@ row_one = dbc.Row([
     dbc.Col([
         html.H1("Paralympics Data Analytics"),
         html.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue luctus elit nec gravida.")
-    ])
-])
+    ], width=12)
+], justify="center", align="center")
 
 row_two = dbc.Row([
     
     # Drop Down Column 1
-    dbc.Col(children=[
+    dbc.Col([
         dbc.Select(
             options=[
                 {"label": "Events", "value": "events"},  # The value is in the format of the column heading in the data
@@ -48,7 +46,7 @@ row_two = dbc.Row([
     ], width=4),
     
     #Checklist Column 2
-    dbc.Col(children=[
+    dbc.Col([
         html.Div([
             dbc.Label("Select the Paralympic Games type"),
             dbc.Checklist(
@@ -62,7 +60,7 @@ row_two = dbc.Row([
         ])         
     ], width={"size": 4, "offset": 2}),
     # 2 'empty' columns between this and the previous column
-])
+], justify = "between")
 
 row_three = dbc.Row([
 # note: className="img-fluid" is a Bootstrap class and prevents the image spanning the next column    
@@ -75,7 +73,7 @@ row_three = dbc.Row([
     dbc.Col(children=[
         html.Img(src=app.get_asset_url('bar-chart-placeholder.png'), className="img-fluid"),
     ], width=6),
-])
+], justify = "between")
 
 row_four = dbc.Row([
     # Column 1: visualisation map with markers for events.
@@ -98,7 +96,7 @@ row_four = dbc.Row([
             style={"width": "18rem"},
         ),    
     ], width=4),
-])
+], justify = "between")
 
 app.layout = dbc.Container([
     # Layout components
