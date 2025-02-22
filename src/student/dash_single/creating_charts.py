@@ -89,7 +89,8 @@ def bar_gender(event_type):
                      y=['Male', 'Female'],
                      title=f'How has the ratio of female:male participants changed in {event_type} paralympics?',
                      labels={'xlabel': '', 'value': '', 'variable': ''},
-                     template="simple_white"
+                     color_discrete_map={'Male': "navy", "Female": "Pink"},
+                     template="simple_white",
                      )
         fig.update_xaxes(ticklen=0)
         fig.update_yaxes(tickformat=".0%")
