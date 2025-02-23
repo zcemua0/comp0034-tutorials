@@ -54,12 +54,12 @@ row_two = dbc.Row([
         html.Div([
             dbc.Label("Select the Paralympic Games type"),
             dbc.Checklist(
-                id="checklist-input",
                 options=[
                     {"label": "Summer", "value": "summer"},
                     {"label": "Winter", "value": "winter"},
                 ],
                 value=["summer"],  # Values is a list as you can select 1 AND 2
+                id="checklist-games-type",
             ),
         ])         
     ], width={"size": 4, "offset": 2}), # 2 'empty' columns between columns
@@ -70,8 +70,7 @@ row_three = dbc.Row([
     dbc.Col(children=[
         dcc.Graph(id="line-chart", figure=line_fig), ], width=6),   
     # Column 2: bar char
-    dbc.Col(children=[
-        dcc.Graph(id="bar-chart", figure=bar_fig), ], width=6),
+    dbc.Col(children=[], id="bar-chart", width=6),
 ], align="start")
 
 row_four = dbc.Row([
@@ -117,6 +116,27 @@ def update_line_chart(feature):
     return figure
 
 
+# Callback to update the bar chart
+# This version removes the original bar chart component from the layout and treats the Col as the Output
+@app.callback(
+    Output(component_id='bar-chart', component_property='children'),
+    Input(component_id='checklist-games-type', component_property='value')
+)
+def update_bar_chart(selected_values):
+    """ Updates the bar chart based on the checklist selection.
+     Creates one chart for each of the selected values.
+     """
+    figures = []
+    # Iterate the list of values from the checkbox component
+    for value in selected_values:
+        fig = bar_gender(value)
+        # Assign id to be used to identify the charts
+        id = f"bar-chart-{value}"
+        element = dcc.Graph(figure=fig, id=id)
+        figures.append(element)
+    return figures
+
+
 # Client-side callback to toggle theme
 clientside_callback(
     """
@@ -128,6 +148,7 @@ clientside_callback(
     Output("theme-switch", "id"), 
     Input("theme-switch", "value"),
 )
+
 
 # Run the app
 if __name__ == '__main__':
