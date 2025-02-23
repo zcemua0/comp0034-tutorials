@@ -23,8 +23,8 @@ color_mode_switch = html.Span([
 # Create the figure (chart) variables
 line_fig = line_chart("sports")
 bar_fig = bar_gender("winter")
-map_fig = scatter_geo()
-card_fig = create_card("Sydney 2000")
+map = scatter_geo()
+card = create_card("Sydney 2000")
 
 # Define layout components 
 row_one = dbc.Row([
@@ -76,9 +76,9 @@ row_three = dbc.Row([
 row_four = dbc.Row([
     # Column 1: visualisation map with markers for events.
     dbc.Col(children=[
-        dcc.Graph(id='map', figure=map_fig), ], width=8),
+        dcc.Graph(id='map', figure=map), ], width=8),
     # Column 2: card with event details        
-    dbc.Col(children=[card_fig], id='card', width=4),
+    dbc.Col(children=[card], id='card', width=4),
     ], align="start")
 
 app.layout = dbc.Container([    
@@ -100,8 +100,7 @@ app.layout = dbc.Container([
         ),
     ]),
     # Hidden div for setting Bootstrap theme
-    html.Div(id="theme-container", style={"display": "none"}),    
-    
+    html.Div(id="theme-container", style={"display": "none"}),       
 ])
 
 
@@ -135,6 +134,20 @@ def update_bar_chart(selected_values):
         element = dcc.Graph(figure=fig, id=id)
         figures.append(element)
     return figures
+
+
+# Callback to update the card based on the map hover data
+@app.callback(
+    Output('card', 'children'),
+    Input('map', 'hoverData'),
+)
+def display_card(hover_data):
+    """ 
+    Display a card with information about the selected country on the map 
+    """
+    if hover_data is not None:
+        text = hover_data['points'][0]['hovertext']
+        return create_card(text)
 
 
 # Client-side callback to toggle theme
