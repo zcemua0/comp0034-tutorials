@@ -48,3 +48,8 @@ Please refer to the weekly folders in `activities`.
 - Week 9 Testing Flask routes
 - Week 10 No mandatory content. This will be used for any additional activities or examples that might arise during
   weeks 6 to 9.
+
+## Completed examples
+Completed examples of the Dash app activities: <https://github.com/nicholsons/comp0034-tutorial-apps-dash>
+
+Complete examples of the Flask app activities: <https://github.com/nicholsons/comp0034-tutorial-apps-flask>
