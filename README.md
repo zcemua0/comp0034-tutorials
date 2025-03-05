@@ -49,7 +49,9 @@ Please refer to the weekly folders in `activities`.
 - Week 10 No mandatory content. This will be used for any additional activities or examples that might arise during
   weeks 6 to 9.
 
-## Completed examples
-Completed examples of the Dash app activities: <https://github.com/nicholsons/comp0034-tutorial-apps-dash>
+## Examples
+Note these are based on the activities. They are examples of aspects of the teaching materials but they are NOT exemplars for the coursework.
 
-Complete examples of the Flask app activities: <https://github.com/nicholsons/comp0034-tutorial-apps-flask>
+Completed examples based on the Dash app activities: <https://github.com/nicholsons/comp0034-tutorial-apps-dash>
+
+Completed examples of the Flask app activities: <https://github.com/nicholsons/comp0034-tutorial-apps-flask>
