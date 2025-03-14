@@ -11,4 +11,6 @@ features that students have in their apps. You are not expected to produce all o
 
 The activities include alternatives for SQLAlchemy and sqlite3 where relevant.
 
+Completed examples of these and demonstrator apps of other features are given in <https://github.com/nicholsons/comp0034-tutorial-apps-flask>.
+
 [Next activity](8-2-page-db.md)
