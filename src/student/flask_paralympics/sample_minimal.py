@@ -27,3 +27,4 @@ def hello_with_template():
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
+    # alt: app.run(port=5001)
